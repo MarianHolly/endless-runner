@@ -1,0 +1,56 @@
+## Endless Runner
+
+#### Player Character
+
+**Keyboard Input**
+
+- we can use either 'pygame.key' or event loop.
+- when using classes you can the controls inside of the relevant class.
+    - pygame.mouse or pygame.key
+- event loop is great for more general stuff, like closing the game.
+
+```Python
+keys = print(pygame.key.get_pressed()) # access all keys
+if keys[pygame.K_SPACE]:
+    print("Jump!")
+```
+
+```Python 
+if event.type == pygame.KEYDOWN:
+    if event.key == pygame.K_SPACE:
+        print("Jump!")
+```
+
+**Jump and Gravity**
+
+- on mouse click, we have two options:
+    - mouse pos/collision => button press => Jump
+    - button press => mouse pos/collision => Jump (more efficient)
+        - because checking the collision is expensive
+
+```Python
+```
+
+**creating a floor and sky**
+
+```Python
+    player_gravity += 1
+    player_rect.y += player_gravity
+    if player_rect.bottom >= 300: player_rect.bottom = 300
+    screen.blit(player_surface, player_rect)
+```
+
+```Python
+if event.type == pygame.KEYDOWN:
+    if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
+        player_gravity = -20
+```
+**ending game**
+
+```Python
+if snail_rect.colliderect(player_rect):
+    pygame.quit()
+    exit()
+```
+
+**states of game (game over, game win)**
