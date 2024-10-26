@@ -54,3 +54,18 @@ if snail_rect.colliderect(player_rect):
 ```
 
 **states of game (game over, game win)**
+
+
+
+**displaying the score (+ measuring time)**
+- we want to update score on every frame
+- put that on a surface
+- dispaly that surface on the screen
+
+```Python
+def display_score():
+    current_time = int(pygame.time.get_ticks() / 1000) - start_time
+    snail_surface = text.render("Score: " + str(current_time), False, (65, 65, 65))
+    score_rect = snail_surface.get_rect(center = (400, 50))
+    screen.blit(snail_surface, score_rect)
+```
