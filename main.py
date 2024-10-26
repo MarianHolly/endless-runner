@@ -6,14 +6,16 @@ def display_score():
     snail_surface = text.render("Score: " + str(current_time), False, (65, 65, 65))
     score_rect = snail_surface.get_rect(center = (400, 50))
     screen.blit(snail_surface, score_rect)
+    return current_time
 
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("Endless Runner")
 clock = pygame.time.Clock()
 text = pygame.font.Font('font/Pixeltype.ttf', 42)
-game_active = True
+game_active = False
 start_time = 0 
+score = 0
 
 # LOADING IMAGES
 
@@ -26,9 +28,19 @@ ground_surface = pygame.image.load("graphics/ground.png").convert()
 snail_surface = pygame.image.load("graphics/snail/snail2.png").convert_alpha()
 snail_rect = snail_surface.get_rect(bottomright = (600, 300))
 
+# PLAYER
 player_surface = pygame.image.load("graphics/Player/player_walk_1.png").convert_alpha()
 player_rect = player_surface.get_rect(midbottom = (80,300))
 player_gravity = 0
+
+# Intro Screen
+player_stand = pygame.image.load("graphics/Player/player_stand.png").convert_alpha()
+player_stand = pygame.transform.rotozoom(player_stand, 0, 2)
+player_stand_rect = player_stand.get_rect(center = (400,200))
+game_name = text.render("Endless Runner", True, (111, 196, 169))
+game_name_rect = game_name.get_rect(center = (400, 100))
+game_message = text.render("Press Space to Start", False, (111, 196, 169))
+game_message_rect = game_message.get_rect(center = (400, 360))
 
 # GAME LOOP
 
@@ -51,7 +63,6 @@ while True:
                 snail_rect.left = 800
                 start_time = int(pygame.time.get_ticks() / 1000)
 
-
     if game_active:
         screen.blit(sky_surface, (0,0))
         screen.blit(ground_surface, (0,300))
@@ -59,6 +70,7 @@ while True:
         # pygame.draw.rect(screen, '#c0e8ec', score_rect, 10)
         # screen.blit(score_surface, score_rect)
         display_score()
+        score = display_score()
 
         snail_rect.x -= 4
         if snail_rect.right < 0: snail_rect.left = 800
@@ -75,8 +87,19 @@ while True:
             game_active = False
 
     else:
-        screen.fill('white')
+        screen.fill((94, 129, 162))
+        screen.blit(player_stand, player_stand_rect)
 
+        score_message = text.render(f"Your Score: {score}", False, (111, 196, 169))
+        score_rect = score_message.get_rect(center = (400, 360))
+
+        screen.blit(game_name, game_name_rect)
+        if score == 0:
+            screen.blit(game_message, game_message_rect)
+        else:    
+            screen.blit(score_message, score_rect)
         
+
+    
     pygame.display.update()
     clock.tick(60)
