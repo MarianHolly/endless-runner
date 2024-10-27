@@ -55,8 +55,6 @@ if snail_rect.colliderect(player_rect):
 
 **states of game (game over, game win)**
 
-
-
 **displaying the score (+ measuring time)**
 - we want to update score on every frame
 - put that on a surface
@@ -69,3 +67,30 @@ def display_score():
     score_rect = snail_surface.get_rect(center = (400, 50))
     screen.blit(snail_surface, score_rect)
 ```
+
+**transform surfaces**
+
+
+
+**better enemy logic (spawning multiple obstacles)**
+- we need timer
+- we create a custom user event that is triggered in certain time intervals
+
+1. we create a custom event
+2. we tell pygame to trigger that event continuously
+3. add code in the event loop
+
+1. create a list of obstacle rectangles
+2. everytime the timer triggers we add a new rectangle to that list
+3. we move every rectangle in the list to the left on every frame
+4. we delete the rectangles that are off the screen
+
+
+
+
+
+**animating the player, the sail and the fly**
+
+**using the sprite class (OOP in Pygame)**
+
+**adding music**
